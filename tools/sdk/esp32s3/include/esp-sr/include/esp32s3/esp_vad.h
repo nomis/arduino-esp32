@@ -47,11 +47,15 @@ typedef void* vad_handle_t;
  *
  * @param vad_mode          Sets the VAD operating mode.
  *
+ * @param sample_rate_hz    The Sampling frequency (Hz) can be 32000, 16000, 8000, default: 16000.
+ *
+ * @param one_frame_ms      The length of the audio processing can be 10ms, 20ms, 30ms, default: 30.
+ *
  * @return
  *         - NULL: Create failed
  *         - Others: The instance of VAD
  */
-vad_handle_t vad_create(vad_mode_t vad_mode);
+vad_handle_t vad_create(vad_mode_t vad_mode, int sample_rate_hz, int one_frame_ms);
 
 /**
  * @brief Feed samples of an audio stream to the VAD and check if there is someone speaking.
@@ -60,16 +64,12 @@ vad_handle_t vad_create(vad_mode_t vad_mode);
  *
  * @param data      An array of 16-bit signed audio samples.
  *
- * @param sample_rate_hz    The Sampling frequency (Hz) can be 32000, 16000, 8000, default: 16000.
- *
- * @param one_frame_ms      The length of the audio processing can be 10ms, 20ms, 30ms, default: 30.
- *
  * @return
  *         - VAD_SILENCE if no voice
  *         - VAD_SPEECH  if voice is detected
  *
  */
-vad_state_t vad_process(vad_handle_t inst, int16_t *data, int sample_rate_hz, int one_frame_ms);
+vad_state_t vad_process(vad_handle_t inst, int16_t *data);
 
 /**
  * @brief Free the VAD instance
