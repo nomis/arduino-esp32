@@ -1,0 +1,12 @@
+export IDF_TOOLS_PATH=/home/simon/inst/esp-idf-4.4.1
+find . -name .git | \
+	while read -r x; do
+		x="${x/\/\.git//}"
+		echo == "$x"
+		pushd "$x" >/dev/null
+		git remote -v
+		git branch
+		git log -1
+		popd >/dev/null
+		echo
+	done
